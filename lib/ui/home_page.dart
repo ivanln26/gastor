@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gastor/blocs/gastor_bloc.dart';
+import 'package:gastor/providers/gastor_provider.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -10,16 +12,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    GastorBloc gastorBloc = GastorProvider.of(context).gastorBloc;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -28,20 +24,16 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+            StreamBuilder(
+              stream: gastorBloc.gastor,
+              builder: (context, snapshot) {
+                return snapshot.hasData
+                    ? Text(snapshot.data.toString())
+                    : Center(child: CircularProgressIndicator());
+              },
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }
