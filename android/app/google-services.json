@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "26017867567",
+    "firebase_url": "https://gastor-bb883.firebaseio.com",
+    "project_id": "gastor-bb883",
+    "storage_bucket": "gastor-bb883.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26017867567:android:5cd4ac4f7397aaff",
+        "android_client_info": {
+          "package_name": "com.example.gastor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26017867567-s7o2loivodjed4i2cuos08etqnr7ol2v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFr1Ujc40tisB9NqskaIHwh2sVpbbbaS4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26017867567-s7o2loivodjed4i2cuos08etqnr7ol2v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
