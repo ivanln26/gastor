@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gastor/blocs/gastor_bloc.dart';
-import 'package:gastor/providers/gastor_provider.dart';
+import 'package:gastor/ui/gastor_list.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -12,28 +11,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Widget _buildHome(GastorBloc gastorBloc) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          StreamBuilder(
-            stream: gastorBloc.gastor,
-            builder: (context, snapshot) {
-              return snapshot.hasData
-                  ? Text(snapshot.data.toString())
-                  : Center(child: CircularProgressIndicator());
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    GastorBloc gastorBloc = GastorProvider.of(context).gastorBloc;
-
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -50,8 +29,8 @@ class _HomePageState extends State<HomePage> {
         ),
         body: TabBarView(
           children: [
-            _buildHome(gastorBloc),
-            Center(child: Text('Gastor list')),
+            Center(child: Text('Home')),
+            GastorList(),
             Center(child: Text('User')),
           ],
         ),
