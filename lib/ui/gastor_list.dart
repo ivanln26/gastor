@@ -11,6 +11,7 @@ class GastorList extends StatefulWidget {
 class _GastorListState extends State<GastorList> {
   Widget _buildList(List<Gastor> list) {
     return ListView.builder(
+      physics: const AlwaysScrollableScrollPhysics(),
       itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
         Gastor gastor = list[index];
@@ -28,13 +29,20 @@ class _GastorListState extends State<GastorList> {
   @override
   Widget build(BuildContext context) {
     GastorBloc gastorBloc = GastorProvider.of(context).gastorBloc;
-    return StreamBuilder(
-      stream: gastorBloc.gastor,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return snapshot.hasData
-            ? _buildList(snapshot.data)
-            : Center(child: CircularProgressIndicator());
-      },
+    final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+        GlobalKey<RefreshIndicatorState>();
+
+    return RefreshIndicator(
+      key: _refreshIndicatorKey,
+      onRefresh: gastorBloc.getGastor,
+      child: StreamBuilder(
+        stream: gastorBloc.gastor,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return snapshot.hasData
+              ? _buildList(snapshot.data)
+              : Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
 }

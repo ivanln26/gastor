@@ -7,10 +7,10 @@ class GastorBloc {
   Stream<List<Gastor>> get gastor => _subject.stream;
 
   GastorBloc() {
-    _getGastor();
+    getGastor();
   }
 
-  Future<Null> _getGastor() async {
+  Future getGastor() async {
     final DatabaseReference database = FirebaseDatabase.instance.reference();
 
     database.child('gastor').once().then((snapshot) {
