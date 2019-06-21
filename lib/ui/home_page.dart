@@ -12,26 +12,47 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Widget _buildHome(GastorBloc gastorBloc) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          StreamBuilder(
+            stream: gastorBloc.gastor,
+            builder: (context, snapshot) {
+              return snapshot.hasData
+                  ? Text(snapshot.data.toString())
+                  : Center(child: CircularProgressIndicator());
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     GastorBloc gastorBloc = GastorProvider.of(context).gastorBloc;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            StreamBuilder(
-              stream: gastorBloc.gastor,
-              builder: (context, snapshot) {
-                return snapshot.hasData
-                    ? Text(snapshot.data.toString())
-                    : Center(child: CircularProgressIndicator());
-              },
-            ),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+          centerTitle: true,
+          bottom: TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.home)),
+              Tab(icon: Icon(Icons.list)),
+              Tab(icon: Icon(Icons.person)),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            _buildHome(gastorBloc),
+            Center(child: Text('Gastor list')),
+            Center(child: Text('User')),
           ],
         ),
       ),
