@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gastor/ui/gastor_create_page.dart';
 import 'package:gastor/ui/gastor_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: TabBarView(
           children: [
-            Center(child: Text('Home')),
+            GastorCreatePage(),
             GastorList(),
             Center(child: Text('User')),
           ],
