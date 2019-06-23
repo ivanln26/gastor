@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:gastor/blocs/gastor_bloc.dart';
+import 'package:gastor/providers/gastor_provider.dart';
 
 class GastorCreatePage extends StatefulWidget {
   @override
@@ -13,6 +15,8 @@ class _GastorCreatePageState extends State<GastorCreatePage> {
 
   @override
   Widget build(BuildContext context) {
+    GastorBloc gastorBloc = GastorProvider.of(context).gastorBloc;
+
     return Form(
       key: _formKey,
       child: Column(
@@ -51,8 +55,9 @@ class _GastorCreatePageState extends State<GastorCreatePage> {
               IconButton(
                 icon: Icon(Icons.arrow_forward),
                 onPressed: () {
-                  print(_ammountController.text);
-                  print(_currencyValue);
+                  var ammount = _ammountController.text;
+                  var currency = _currencyValue;
+                  gastorBloc.addGastor(ammount, currency);
                 },
               ),
             ],

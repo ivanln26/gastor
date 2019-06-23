@@ -3,6 +3,8 @@ import 'package:gastor/models/gastor.dart';
 import 'package:rxdart/rxdart.dart';
 
 class GastorBloc {
+  final DatabaseReference _database = FirebaseDatabase.instance.reference();
+
   final _subject = BehaviorSubject<List<Gastor>>();
   Stream<List<Gastor>> get gastor => _subject.stream;
 
@@ -10,12 +12,17 @@ class GastorBloc {
     getGastor();
   }
 
-  Future getGastor() async {
-    final DatabaseReference database = FirebaseDatabase.instance.reference();
+  Future addGastor(ammount, currency) async {
+    _database.child('gastor').push().set({
+      'ammount': ammount,
+      'currency': currency,
+    });
+  }
 
-    database.child('gastor').once().then((snapshot) {
+  Future getGastor() async {
+    _database.child('gastor').once().then((snapshot) {
       List<Gastor> list = [];
-      snapshot.value.forEach((json) => list.add(Gastor.fromJson(json)));
+      snapshot.value.forEach((key, value) => list.add(Gastor.fromJson(value)));
       _subject.sink.add(list);
     });
   }
