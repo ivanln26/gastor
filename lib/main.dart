@@ -11,6 +11,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Gastor',
       theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.deepOrange,
         primarySwatch: Colors.red,
       ),
       home: GastorProvider(

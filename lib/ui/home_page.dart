@@ -12,6 +12,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void _showModalSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (builder) {
+        return Container(
+          height: 100,
+          child: Center(
+            child: Text('Form'),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -19,8 +33,10 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          backgroundColor: Colors.black,
           centerTitle: true,
           bottom: TabBar(
+            indicatorColor: Theme.of(context).primaryColor,
             tabs: [
               Tab(icon: Icon(Icons.home)),
               Tab(icon: Icon(Icons.list)),
@@ -34,6 +50,18 @@ class _HomePageState extends State<HomePage> {
             GastorList(),
             Center(child: Text('User')),
           ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: Theme.of(context).primaryColor,
+          foregroundColor: Colors.white,
+          icon: Icon(Icons.add),
+          label: Text('New Gastor'),
+          onPressed: _showModalSheet,
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomSheet: Container(
+          color: Colors.black,
+          height: 50,
         ),
       ),
     );
