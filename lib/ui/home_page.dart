@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -41,7 +41,6 @@ class _HomePageState extends State<HomePage> {
           bottom: TabBar(
             indicatorColor: Theme.of(context).primaryColor,
             tabs: [
-              Tab(icon: Icon(Icons.home)),
               Tab(icon: Icon(Icons.list)),
               Tab(icon: Icon(Icons.person)),
             ],
@@ -49,7 +48,6 @@ class _HomePageState extends State<HomePage> {
         ),
         body: TabBarView(
           children: [
-            GastorCreatePage(),
             GastorList(),
             Center(child: Text('User')),
           ],
