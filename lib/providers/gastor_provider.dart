@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gastor/blocs/gastor_bloc.dart';
 
 class GastorProvider extends InheritedWidget {
-  GastorBloc gastorBloc;
+  final GastorBloc gastorBloc;
 
   GastorProvider({this.gastorBloc, Widget child}) : super(child: child);
 

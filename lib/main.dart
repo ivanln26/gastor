@@ -8,16 +8,16 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Gastor',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.deepOrange,
-        primarySwatch: Colors.red,
-      ),
-      home: GastorProvider(
-        gastorBloc: GastorBloc(),
-        child: HomePage(title: 'Gastor'),
+    return GastorProvider(
+      gastorBloc: GastorBloc(),
+      child: MaterialApp(
+        title: 'Gastor',
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          primaryColor: Colors.deepOrange,
+          primarySwatch: Colors.red,
+        ),
+        home: HomePage(title: 'Gastor'),
       ),
     );
   }

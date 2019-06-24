@@ -15,11 +15,14 @@ class _HomePageState extends State<HomePage> {
   void _showModalSheet() {
     showModalBottomSheet(
       context: context,
-      builder: (builder) {
-        return Container(
-          height: 100,
-          child: Center(
-            child: Text('Form'),
+      builder: (BuildContext context) {
+        return AnimatedPadding(
+          padding: MediaQuery.of(context).viewInsets,
+          duration: Duration(milliseconds: 100),
+          curve: Curves.decelerate,
+          child: Container(
+            height: 100,
+            child: GastorCreatePage(),
           ),
         );
       },
@@ -55,13 +58,8 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Theme.of(context).primaryColor,
           foregroundColor: Colors.white,
           icon: Icon(Icons.add),
-          label: Text('New Gastor'),
+          label: Text('Gastor'),
           onPressed: _showModalSheet,
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomSheet: Container(
-          color: Colors.black,
-          height: 50,
         ),
       ),
     );
