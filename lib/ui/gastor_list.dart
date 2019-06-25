@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gastor/blocs/gastor_bloc.dart';
 import 'package:gastor/models/gastor.dart';
 import 'package:gastor/providers/gastor_provider.dart';
+import 'package:gastor/ui/gastor_detail_page.dart';
 
 class GastorList extends StatefulWidget {
   @override
@@ -13,14 +14,27 @@ class _GastorListState extends State<GastorList> {
     return ListView.builder(
       physics: const AlwaysScrollableScrollPhysics(),
       itemCount: list.length,
+      padding: EdgeInsets.only(left: 10, top: 2, right: 10),
       itemBuilder: (BuildContext context, int index) {
         Gastor gastor = list[index];
 
-        return Card(
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Text('${gastor.ammount} - ${gastor.currency}'),
+        return GestureDetector(
+          child: Card(
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Text('${gastor.ammount} - ${gastor.currency}'),
+            ),
           ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => GastorDetailPage(
+                      gastor: gastor,
+                    ),
+              ),
+            );
+          },
         );
       },
     );
