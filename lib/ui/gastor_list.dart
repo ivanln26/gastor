@@ -29,13 +29,24 @@ class _GastorListState extends State<GastorList> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => GastorDetailPage(
-                      gastor: gastor,
-                    ),
+                builder: (context) => GastorDetailPage(gastor: gastor),
               ),
             );
           },
         );
+      },
+    );
+  }
+
+  Widget _listStreamBuilder(GastorBloc gastorBloc) {
+    return StreamBuilder(
+      stream: gastorBloc.gastor,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return snapshot.hasData
+            ? _buildList(snapshot.data)
+            : Center(
+                child: Text('Actualmente no cuenta con ningún gasto'),
+              );
       },
     );
   }
@@ -50,11 +61,11 @@ class _GastorListState extends State<GastorList> {
       key: _refreshIndicatorKey,
       onRefresh: gastorBloc.getGastor,
       child: StreamBuilder(
-        stream: gastorBloc.gastor,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          return snapshot.hasData
-              ? _buildList(snapshot.data)
-              : Center(child: CircularProgressIndicator());
+        stream: gastorBloc.isLoading,
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          return (snapshot.hasData && snapshot.data)
+              ? Center(child: CircularProgressIndicator())
+              : _listStreamBuilder(gastorBloc);
         },
       ),
     );
