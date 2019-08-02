@@ -42,11 +42,10 @@ class _GastorListState extends State<GastorList> {
     return StreamBuilder(
       stream: gastorBloc.gastor,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return snapshot.hasData
-            ? _buildList(snapshot.data)
-            : Center(
-                child: Text('Actualmente no cuenta con ningún gasto'),
-              );
+        if (snapshot.hasError) {
+          return Center(child: Text('${snapshot.error}'));
+        }
+        return snapshot.hasData ? _buildList(snapshot.data) : Container();
       },
     );
   }

@@ -28,12 +28,15 @@ class GastorBloc {
   }
 
   Future getGastor() async {
-    _database.child('gastor').once().then((snapshot) {
+    _isLoadingSubject.add(true);
+    _database.child('gastor').once().then((DataSnapshot snapshot) {
       if (snapshot.value != null) {
         List<Gastor> list = [];
         snapshot.value
             .forEach((key, value) => list.add(Gastor.fromJson(value)));
         _subject.sink.add(list);
+      } else {
+        _subject.sink.addError('Actualmente no cuenta con ningún gasto');
       }
       Timer(
         const Duration(milliseconds: 500),
