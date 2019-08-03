@@ -21,10 +21,16 @@ class GastorBloc {
   }
 
   Future addGastor(ammount, currency) async {
-    _database.child('gastor').push().set({
+    await _database.child('gastor').push().set({
       'ammount': ammount,
       'currency': currency,
     });
+    getGastor();
+  }
+
+  Future deleteGastor(String key) async {
+    await _database.child('gastor').child(key).remove();
+    getGastor();
   }
 
   Future getGastor() async {
@@ -33,7 +39,7 @@ class GastorBloc {
       if (snapshot.value != null) {
         List<Gastor> list = [];
         snapshot.value
-            .forEach((key, value) => list.add(Gastor.fromJson(value)));
+            .forEach((key, value) => list.add(Gastor.fromJson(key, value)));
         _subject.sink.add(list);
       } else {
         _subject.sink.addError('Actualmente no cuenta con ningún gasto');

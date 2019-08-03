@@ -57,7 +57,7 @@ class _GastorCreatePageState extends State<GastorCreatePage> {
                 onPressed: () {
                   var ammount = _ammountController.text;
                   var currency = _currencyValue;
-                  gastorBloc.addGastor(ammount, currency);
+                  gastorBloc.addGastor(ammount, currency).then((_) => Navigator.of(context).pop());
                 },
               ),
             ],
