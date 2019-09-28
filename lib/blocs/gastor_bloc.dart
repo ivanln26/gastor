@@ -24,6 +24,7 @@ class GastorBloc {
     await _database.child('gastor').push().set({
       'ammount': ammount,
       'currency': currency,
+      'created_at': DateTime.now().toString(),
     });
     getGastor();
   }
@@ -40,6 +41,7 @@ class GastorBloc {
         List<Gastor> list = [];
         snapshot.value
             .forEach((key, value) => list.add(Gastor.fromJson(key, value)));
+        list.sort((a, b) => b.createdAt.compareTo(a.createdAt));
         _subject.sink.add(list);
       } else {
         _subject.sink.addError('Actualmente no cuenta con ningún gasto');
